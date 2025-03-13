@@ -1,5 +1,5 @@
-name = "a0b_stm32f2_gpio"
-description = "A0B: STM32F2xx GPIO"
+name = "a0b_stm32f2_generic_gpio"
+description = "A0B: STM32F2+ Generic GPIO"
 version = "0.1.0-dev"
 
 authors = ["Vadim Godunko"]
@@ -8,7 +8,7 @@ maintainers-logins = ["godunko"]
 licenses = "Apache-2.0 WITH LLVM-exception"
 tags = ["a0b", "embedded"]
 
-project-files = ["gnat/a0b_stm32f2_gpio.gpr"]
+project-files = ["gnat/a0b_stm32f2_generic_gpio.gpr"]
 
 [configuration]
 generate_ada = false
