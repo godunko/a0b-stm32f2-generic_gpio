@@ -7,13 +7,15 @@
 --  Common definitions for STM32F2xx family [RM0033]
 --
 --  GPIO: General-purpose I/Os
+--
+--  It is generalized version to reuse by other MCUs.
 
 pragma Ada_2022;
 
 with A0B.STM32;
 with A0B.Types;
 
-package A0B.Peripherals.F2_GPIO
+package A0B.Peripherals.GPIO
   with Preelaborate, No_Elaboration_Code_All
 is
 
@@ -178,4 +180,4 @@ is
       GPIO_AFR     at GPIO_AFR_Offset     range 0 .. 63;
    end record;
 
-end A0B.Peripherals.F2_GPIO;
+end A0B.Peripherals.GPIO;

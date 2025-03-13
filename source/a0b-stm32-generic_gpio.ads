@@ -4,14 +4,24 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
---  GPIO controller driver for STM32F2. It supports some later MCU too.
+--  Generic GPIO controller driver for STM32F2+. It supports some later MCU
+--  too.
 
 pragma Restrictions (No_Elaboration_Code);
 
 with A0B.GPIO;
-with A0B.Peripherals.F2_GPIO;
+with A0B.Peripherals.GPIO;
 
-package A0B.STM32.GPIO
+generic
+   with procedure Enable_GPIO_Clock
+     (Identifier : A0B.STM32.GPIO_Controller_Identifier);
+   --  Enable clock of the given GPIO peripheral
+
+   with procedure Disable_GPIO_Clock
+     (Identifier : A0B.STM32.GPIO_Controller_Identifier);
+   --  Disable clock of the given GPIO peripheral
+
+package A0B.STM32.Generic_GPIO
   with Preelaborate
 is
 
@@ -45,14 +55,8 @@ is
    overriding procedure Set (Self : GPIO_Line; To : Boolean);
 
    type GPIO_Controller
-     (Peripheral : not null access A0B.Peripherals.F2_GPIO.GPIO_Registers;
+     (Peripheral : not null access A0B.Peripherals.GPIO.GPIO_Registers;
       Identifier : A0B.STM32.GPIO_Controller_Identifier)
         is abstract tagged limited null record;
 
-   not overriding procedure Enable_Clock
-     (Self : in out GPIO_Controller) is abstract;
-
-   not overriding procedure Disable_Clock
-     (Self : in out GPIO_Controller) is abstract;
-
-end A0B.STM32.GPIO;
+end A0B.STM32.Generic_GPIO;

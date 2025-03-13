@@ -4,7 +4,7 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-package body A0B.STM32.GPIO is
+package body A0B.STM32.Generic_GPIO is
 
    procedure Set_Pull_Mode
      (Self : aliased in out GPIO_Line'Class;
@@ -43,7 +43,7 @@ package body A0B.STM32.GPIO is
       --  of bit array.
 
    begin
-      Self.Controller.Enable_Clock;
+      Enable_GPIO_Clock (Self.Controller.Identifier);
 
       for Descriptor of Line loop
          if Descriptor.Controller = Self.Controller.Identifier
@@ -57,7 +57,7 @@ package body A0B.STM32.GPIO is
               Descriptor.Alternative_Function;
 
             Self.Controller.Peripheral.GPIO_MODER.MODER (Self.Identifier) :=
-              A0B.Peripherals.F2_GPIO.Alternate;
+              A0B.Peripherals.GPIO.Alternate;
 
             return;
          end if;
@@ -79,12 +79,12 @@ package body A0B.STM32.GPIO is
       --  of bit array.
 
    begin
-      Self.Controller.Enable_Clock;
+      Enable_GPIO_Clock (Self.Controller.Identifier);
 
       Self.Set_Pull_Mode (Pull);
 
       Self.Controller.Peripheral.GPIO_MODER.MODER (Self.Identifier) :=
-        A0B.Peripherals.F2_GPIO.Input;
+        A0B.Peripherals.GPIO.Input;
    end Initialize_Input;
 
    -----------------------
@@ -102,14 +102,14 @@ package body A0B.STM32.GPIO is
       --  of bit array.
 
    begin
-      Self.Controller.Enable_Clock;
+      Enable_GPIO_Clock (Self.Controller.Identifier);
 
       Self.Set_Output_Mode (Mode);
       Self.Set_Output_Speed (Speed);
       Self.Set_Pull_Mode (Pull);
 
       Self.Controller.Peripheral.GPIO_MODER.MODER (Self.Identifier) :=
-        A0B.Peripherals.F2_GPIO.Output;
+        A0B.Peripherals.GPIO.Output;
    end Initialize_Output;
 
    ---------
@@ -121,7 +121,7 @@ package body A0B.STM32.GPIO is
       --  GPIO line identifier of the valid GPIO line is known to be in range
       --  of bit array.
 
-      Aux : A0B.Peripherals.F2_GPIO.GPIO_BSRR_Register :=
+      Aux : A0B.Peripherals.GPIO.GPIO_BSRR_Register :=
         (BS => (others => False), BR => (others => False));
 
    begin
@@ -183,4 +183,4 @@ package body A0B.STM32.GPIO is
       Self.Controller.Peripheral.GPIO_PUPDR.PUPDR (Self.Identifier) := To;
    end Set_Pull_Mode;
 
-end A0B.STM32.GPIO;
+end A0B.STM32.Generic_GPIO;

@@ -27,6 +27,8 @@ is
    type Function_Line_Descriptor (<>) is limited private
      with Preelaborable_Initialization;
 
+   type EXTI_Mode is (Both_Edge, Rising_Edge, Falling_Edge);
+
 private
 
    type GPIO_Alternative_Function is mod 2 ** 4;
