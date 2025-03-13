@@ -31,7 +31,8 @@ is
      (Controller : not null access GPIO_Controller'Class;
       Identifier : GPIO_Line_Identifier) is
         abstract limited new A0B.GPIO.Input_Line
-          and A0B.GPIO.Output_Line with null record;
+          and A0B.GPIO.Output_Line with null record
+            with Preelaborable_Initialization;
 
    procedure Initialize_Input
      (Self : aliased in out GPIO_Line'Class;
@@ -57,6 +58,6 @@ is
    type GPIO_Controller
      (Peripheral : not null access A0B.Peripherals.GPIO.GPIO_Registers;
       Identifier : A0B.STM32.GPIO_Controller_Identifier)
-        is abstract tagged limited null record;
+        is tagged limited null record with Preelaborable_Initialization;
 
 end A0B.STM32.Generic_GPIO;
